@@ -22,7 +22,7 @@ def seaweedfs_slave():
     with seaweedfs_master() as master:
         container_id = subprocess.check_output(
             shlex.split('docker run -d -p 8080:8080 --link {master_id} '
-                        '{docker_image} volume -max=5 -mserver="localhost:9333" -port=8080'.format(
+                        '{docker_image} volume -max=5 -mserver="{master_id}:9333" -port=8080'.format(
                 docker_image=docker_image,
                 master_id=master
             )))
@@ -43,11 +43,26 @@ def seaweedfs(request):
 
 
 class TestImageStorage:
-    def test1(self, seaweedfs):
+    def test_alive(self, seaweedfs):
         url = seaweedfs.url
         response = requests.get(url)
         assert response.status_code == 200
 
+    def test_file_upload(self, seaweedfs):
+        url = seaweedfs.url + "dir/assign"
+        response_creation = requests.post(url)
+        json = response_creation.json()
+        fid = json['fid']
+        url = json['publicUrl']
+        with open("./test_data/test.jpg", "rb") as file:
+            response = requests.put("http://" + url + "/" + fid, files={'file': file})
+        print(response)
+
+        lookup = requests.get(seaweedfs.url + "/dir/lookup?volumeId=" + fid)
+        print(lookup)
+        read_url = lookup.json()["locations"][0]["publicUrl"]
+        response1 = requests.get("http://" +read_url + "/" + fid)
+        print(response1.content)
 
         # def teardown_method(self, test_method):
         #     subprocess.check_call(['docker', 'rm', '-f', self.container])
