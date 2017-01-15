@@ -11,7 +11,7 @@ from test.seaweedfs_utils import seaweedfs_slave
 
 @pytest.fixture(scope="module")
 def seaweedfs(request):
-    with seaweedfs_slave() as seaweed_url:
+    with seaweedfs_slave(19331, 18082) as seaweed_url:
         yield SeaWeedFSConnection(seaweed_url)
 
 
