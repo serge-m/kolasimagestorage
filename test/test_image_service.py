@@ -41,7 +41,7 @@ class TestImageService:
         mocked_image_endoder.return_value.numpy_to_binary.return_value = self.bytes_array
         mocked_file_service.return_value.put.return_value = self.url
 
-        path = ImageService(self.url).put(self.image)
+        path = ImageService(self.url).put_array(self.image)
 
         assert path == self.url
         mocked_image_endoder.return_value.numpy_to_binary.assert_called_once_with(self.image)
@@ -53,7 +53,7 @@ class TestImageService:
         mocked_file_service.return_value.get.return_value = self.bytes_array
         mocked_image_endoder.return_value.binary_to_array.return_value = self.image
 
-        image = ImageService(self.url).get(self.url)
+        image = ImageService(self.url).get_array(self.url)
 
         assert image is self.image
         mocked_file_service.return_value.get.assert_called_once_with(file_id=self.url)
@@ -63,7 +63,7 @@ class TestImageService:
         image_service = ImageService(self.url)
 
         with pytest.raises(Exception):
-            image_service.put("123123")
+            image_service.put_array("123123")
 
         with pytest.raises(Exception):
-            image_service.put([[1, 2, 3, [4]]])
+            image_service.put_array([[1, 2, 3, [4]]])
