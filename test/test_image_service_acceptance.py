@@ -20,8 +20,8 @@ class TestImageServiceAcceptance:
 
     def test_put_get(self, seaweedfs):
         image_service = ImageService(seaweedfs.url)
-        path = image_service.put(self.image)
-        loaded = image_service.get(path)
+        path = image_service.put_array(self.image)
+        loaded = image_service.get_array(path)
 
         assert isinstance(path, str)
         assert np.allclose(loaded, self.image, atol=2)
