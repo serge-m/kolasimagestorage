@@ -1,7 +1,7 @@
 import numpy as np
 
-from file_service import FileService
-from image_encoder import ImageEncoder
+from kolasimagestorage.file_service import FileService
+from kolasimagestorage.image_encoder import ImageEncoder
 
 
 class ImageServiceError(Exception): pass
