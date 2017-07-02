@@ -4,7 +4,7 @@ import pytest
 import requests
 from pytest import mark
 
-from file_service import FileService, FileNotFoundException, WrongFileId, IncorrectFile
+from kolasimagestorage.file_service import FileService, FileNotFoundException, WrongFileId, IncorrectFile
 from test.seaweedfs_utils import SeaWeedFSConnection
 from test.seaweedfs_utils import seaweedfs_slave
 

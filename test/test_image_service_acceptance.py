@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from image_service import ImageService
+from kolasimagestorage.image_service import ImageService
 from test.seaweedfs_utils import SeaWeedFSConnection
 from test.seaweedfs_utils import seaweedfs_slave
 

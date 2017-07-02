@@ -1,6 +1,6 @@
 import numpy as np
 
-from image_encoder import ImageEncoder
+from kolasimagestorage.image_encoder import ImageEncoder
 
 
 class TestImageEncoder:

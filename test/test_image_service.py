@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 from six import BytesIO
 
-from image_service import ImageService
+from kolasimagestorage.image_service import ImageService
 
 
 def load_image(path):
@@ -27,16 +27,16 @@ class TestImageService:
     url = "some-url"
     bytes_array = b"some-bytes"
 
-    @mock.patch('image_service.ImageEncoder')
-    @mock.patch('image_service.FileService')
+    @mock.patch('kolasimagestorage.image_service.ImageEncoder')
+    @mock.patch('kolasimagestorage.image_service.FileService')
     def test_creation(self, mocked_file_service, mocked_image_endoder):
         ImageService(self.url)
 
         mocked_image_endoder.assert_called_once_with("jpeg")
         mocked_file_service.assert_called_once_with(self.url)
 
-    @mock.patch('image_service.ImageEncoder')
-    @mock.patch('image_service.FileService')
+    @mock.patch('kolasimagestorage.image_service.ImageEncoder')
+    @mock.patch('kolasimagestorage.image_service.FileService')
     def test_put(self, mocked_file_service, mocked_image_endoder):
         mocked_image_endoder.return_value.numpy_to_binary.return_value = self.bytes_array
         mocked_file_service.return_value.put.return_value = self.url
@@ -47,8 +47,8 @@ class TestImageService:
         mocked_image_endoder.return_value.numpy_to_binary.assert_called_once_with(self.image)
         mocked_file_service.return_value.put.assert_called_once_with(self.bytes_array)
 
-    @mock.patch('image_service.ImageEncoder')
-    @mock.patch('image_service.FileService')
+    @mock.patch('kolasimagestorage.image_service.ImageEncoder')
+    @mock.patch('kolasimagestorage.image_service.FileService')
     def test_get(self, mocked_file_service, mocked_image_endoder):
         mocked_file_service.return_value.get.return_value = self.bytes_array
         mocked_image_endoder.return_value.binary_to_array.return_value = self.image
