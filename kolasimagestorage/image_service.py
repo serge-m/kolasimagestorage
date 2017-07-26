@@ -1,3 +1,4 @@
+import logging
 import numpy as np
 
 from kolasimagestorage.file_service import FileService
@@ -15,6 +16,9 @@ class ImageReadingFailed(ImageServiceError): pass
 
 class ImageService:
     def __init__(self, url):
+        logger = logging.getLogger(__name__)
+        logger.info("Init ImageService for url {}".format(url))
+
         self._file_storage = FileService(url)
         self._image_encoder = ImageEncoder("jpeg")
 
