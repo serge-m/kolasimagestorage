@@ -13,5 +13,6 @@ class ImageEncoder:
         im.save(file_like, format=self._format)
         return file_like.getvalue()
 
+    # noinspection PyMethodMayBeStatic
     def binary_to_array(self, binary: bytes) -> np.ndarray:
         return np.asarray(Image.open(BytesIO(binary)))

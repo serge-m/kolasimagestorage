@@ -5,3 +5,5 @@ numpy>=1.11.3
 Pillow>=4.0.0
 six>=1.10.0
 
+apache-libcloud>=2.1.0
+lockfile>=0.12.2
